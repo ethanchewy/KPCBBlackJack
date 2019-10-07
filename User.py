@@ -16,14 +16,19 @@ class User:
     :rtype: boolean
     """
     def has_busted(self):
-        return sum > 21
+        return self.sum > 21
 
     """Takes a card hit from the dealer
 
-    Also, changes the sum and cardsDealt attributes according depending on what card is dealt
+    Also, changes the sum and cards_dealt attributes according depending on what card is dealt
+
+    :param user_type: the type of user that is getting the hit
     """
-    def hit(self):
+    def hit(self, user_type):
         card = self.deck.give_card(self)
+        print(user_type + " draws a " + str(card.number) + " of " + card.suit)
+        self.cards_dealt += [card]
+        self.take_hit(card)
 
 
     """Process hit
@@ -31,8 +36,8 @@ class User:
     :param Card: Card that has just been dealt to the user
     """
     def take_hit(self, card):
-        if card.isAce:
-            sums = [self.sum + card.number[0], self.sum + card.number[1]]
+        if card.is_ace:
+            sums = [self.sum + 1, self.sum + 11]
             self.sum = min(sums, key = lambda s: self.sum - s)
         else:
             self.sum += card.number
@@ -44,5 +49,3 @@ class User:
     """
     def blackjack(self):
         return self.sum == 21
-
-

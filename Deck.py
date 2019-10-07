@@ -24,20 +24,18 @@ class Deck:
     """
     def generate_random_deck(self):
         cards = []
-        for num in range(1, 52+1):
+        for num in range(1, 14):
+            num_added = num
+            if num >= 10:
+                num_added = 10
             for suit in ["spade", "heart", "club", "diamond"]:
-                cards += [Card(suit, num, num==1)]
+                cards += [Card(suit, num_added, num==1)]
 
-        return random.shuffle(cards)
+        random.shuffle(cards)
+
+        return cards
 
     """Reset deck
     """
     def reset(self):
        self.cards = self.generate_random_deck()
-
-
-
-
-
-
-
